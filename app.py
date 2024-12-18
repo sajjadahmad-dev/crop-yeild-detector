@@ -1,9 +1,17 @@
 import streamlit as st
 import pickle
 import numpy as np
+import os
+
+# Verify current working directory
+st.write("Current working directory:", os.getcwd())
 
 # Load the model
-model = pickle.load(open('fertilizer_type_model.pkl', 'rb'))
+try:
+    model = pickle.load(open('fertilizer_type_model.pkl', 'rb'))
+except FileNotFoundError:
+    st.error("The model file 'fertilizer_type_model.pkl' is not found.")
+    st.stop()
 
 # Title of the app
 st.title('Fertilizer Type Prediction')
@@ -24,7 +32,7 @@ if st.button('Predict'):
         # Create input array for prediction
         features = np.array([[soil_color, nitrogen, phosphorus, potassium, 
                              ph, rainfall, temperature, crop]])
-        
+
         # Make prediction
         prediction = model.predict(features)[0]
 
@@ -58,4 +66,3 @@ if st.button('Predict'):
         
     except Exception as e:
         st.error(f'Error in prediction: {str(e)}')
-
