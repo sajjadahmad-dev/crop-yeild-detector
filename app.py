@@ -25,7 +25,7 @@ if st.button('Predict'):
         features = np.array([[soil_color, nitrogen, phosphorus, potassium, 
                              ph, rainfall, temperature, crop]])
         
-        numpy=features.
+        # Make prediction
         prediction = model.predict(features)[0]
 
         # Map prediction to fertilizer type
@@ -58,3 +58,4 @@ if st.button('Predict'):
         
     except Exception as e:
         st.error(f'Error in prediction: {str(e)}')
+
